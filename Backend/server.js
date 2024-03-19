@@ -89,6 +89,23 @@ app.post('/partner', (req, res) => {
 });
 
 
+app.post('/register', (req, res) => {
+  const sql = "INSERT INTO partner (username, password, category) VALUES (?, ?, ?)";
+  const values = [
+    req.body.username,
+    req.body.password,
+    req.body.category
+  ];
+  db.query(sql, values, (err, result) => {
+    if (err) {
+      console.error("Error executing SQL query:", err);
+      return res.status(500).json({ error: "An error occurred during registration." });
+    }
+    return res.status(200).json({ success: true, message: "Registration successful." });
+  });
+});
+
+
 app.get('/read/:id', (req, res) => {
     const sql = 'SELECT * FROM partner WHERE id =?';
     const id = req.params.id;
@@ -267,6 +284,7 @@ app.get('/read_profile/:profile_id', (req, res) => {
         return res.json(result);
     })
 });
+
 app.delete('/delete_profile/:profile_id',(req,res)=>{
     const sql = 'DELETE FROM partners_profile WHERE profile_id =?';
     const id = req.params.profile_id;
@@ -490,8 +508,7 @@ app.get('/allorders', (req, res) => {
 
 app.post('/orders', (req, res) => {
     const { order_email, order_date, order_status, product, total_price } = req.body;
-  
-    // Convert product data to JSON string before storing in the database
+
     const productData = JSON.stringify(product);
   
     const sql = `INSERT INTO orders (order_email, order_date, order_status, product, total_price) VALUES (?, ?, ?, ?, ?)`;
@@ -506,17 +523,24 @@ app.post('/orders', (req, res) => {
     });
   });
   
-
-  
-app.put('/edistatus/:order_id', (req, res) => {
-  const sql = 'UPDATE orders SET `status`=? WHERE order_id =?';
-  const id = req.params.order_id;
-  db.query(sql,[req.body.status, id], (err,result)=>{
-      if(err) return res.json({Message: "Error in server"});
-      return res.json(result);
-  })
+  app.get('/read_order/:order_id', (req, res) => {
+    const sql = 'SELECT * FROM orders WHERE order_id =?';
+    const id = req.params.order_id;
+    db.query(sql,[id],(err,result)=>{
+        if(err) return res.json({Message: "Error in server"});
+        return res.json(result);
+    })
 });
-  
+
+app.put('/edistatus/:order_id', (req, res) => {
+    const sql = 'UPDATE orders SET `order_status`=? WHERE order_id =?';
+    const id = req.params.order_id;
+    db.query(sql, [req.body.order_status, id], (err, result) => {
+        if (err) return res.json({ Message: "Error in server" });
+        return res.json(result);
+    });
+});
+
 //   // Delete Legal Info by ID
 //   app.delete('/legal-info/:id', (req, res) => {
 //     const { id } = req.params;

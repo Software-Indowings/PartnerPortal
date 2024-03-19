@@ -50,7 +50,7 @@ function LoginPartner() {
           })
         );
         setLoginStatus("success");
-        navigate("/layout");
+        navigate("/update_profile");
       } else {
         setLoginStatus("failed");
       }
@@ -104,7 +104,7 @@ function LoginPartner() {
                     marginTop: "20px",
                     marginBottom: "20px",
                     textAlign: "center",
-                    fontSize: "42px",
+                    fontSize: "30px",
                     fontFamily: "Arial, sans-serif",
                     color: "black",
                   }}
@@ -115,7 +115,7 @@ function LoginPartner() {
                   <p
                     style={{
                       color: "green",
-                      fontSize: "24px",
+                      fontSize: "14px",
                       fontFamily: "Arial, sans-serif",
                     }}
                   >
@@ -126,7 +126,7 @@ function LoginPartner() {
                   <p
                     style={{
                       color: "red",
-                      fontSize: "24px",
+                      fontSize: "14px",
                       fontFamily: "Arial, sans-serif",
                     }}
                   >
@@ -141,13 +141,13 @@ function LoginPartner() {
                       style={{
                         display: "block",
                         marginBottom: "10px",
-                        fontSize: "19px",
+                        fontSize: "13px",
                         fontFamily: "Arial, sans-serif",
                         color: "black",
                       }}
                       htmlFor="username"
                     >
-                      Email
+                      <b>Email</b>
                     </label>
                     <MDBInput
                       wrapperClass="mb-6"
@@ -159,7 +159,7 @@ function LoginPartner() {
                       onChange={handleInputChange}
                       required
                       style={{
-                        fontSize: "29px",
+                        fontSize: "13px",
                         fontFamily: "Arial, sans-serif",
                         color: "black",
                       }}
@@ -170,13 +170,13 @@ function LoginPartner() {
                       style={{
                         display: "block",
                         marginBottom: "10px",
-                        fontSize: "19px",
+                        fontSize: "13px",
                         fontFamily: "Arial, sans-serif",
                         color: "black",
                       }}
                       htmlFor="password"
                     >
-                      Password
+                     <b>Password</b> 
                     </label>
                     <MDBInput
                       wrapperClass="mb-4"
@@ -188,7 +188,7 @@ function LoginPartner() {
                       onChange={handleInputChange}
                       required
                       style={{
-                        fontSize: "30px",
+                        fontSize: "13px",
                         fontFamily: "Arial, sans-serif",
                         color: "black",
                       }}
@@ -199,6 +199,7 @@ function LoginPartner() {
                     color="dark"
                     size="lg"
                     type="submit"
+                    required
                     style={{
                       width: "200px",
                       minWidth: "200px",
@@ -208,9 +209,13 @@ function LoginPartner() {
                     Login
                   </MDBBtn>
                   <br/>
-                  {/* <div >
+                  <div >
+                   <Link to="/registration" className='btn btn-secondary me-2'>Registration Form</Link>
+                  </div>
+                  <br/>
+                  <div >
                    <Link to="/register" className='btn btn-primary me-2'>Register</Link>
-                  </div> */}
+                  </div>
                 </form>
               </MDBCardBody>
             </MDBCol>

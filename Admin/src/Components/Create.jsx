@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import { Link, useNavigate } from "react-router-dom";
-import backgroundImage from '../images/3.png'; // Import background image
+import backgroundImage from '../images/3.png'; 
 
 function Create() {
     const [values, setValues] = useState({

@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import {
   MDBBtn,
   MDBContainer,
@@ -18,16 +16,15 @@ import img from "../images/2.png";
 import logo from "../images/partner.png";
 import backgroundImg from "../images/3.png";
 
-function Register(props) {
-  
+function Register() {
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
+    category: "",
     confirmPassword: ""
   });
   const [loginStatus, setLoginStatus] = useState(null);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -41,7 +38,7 @@ function Register(props) {
       return;
     }
     try {
-      const res = await axios.post("http://localhost:3307/partner/", credentials);
+      const res = await axios.post("http://localhost:3307/register/", credentials);
       if (res.status === 200) {
         setLoginStatus("success");
         navigate("/");
@@ -98,7 +95,7 @@ function Register(props) {
                     marginTop: "20px",
                     marginBottom: "20px",
                     textAlign: "center",
-                    fontSize: "42px",
+                    fontSize: "30px",
                     fontFamily: "Arial, sans-serif",
                     color: "black",
                   }}
@@ -109,7 +106,7 @@ function Register(props) {
                   <p
                     style={{
                       color: "green",
-                      fontSize: "24px",
+                      fontSize: "14px",
                       fontFamily: "Arial, sans-serif",
                     }}
                   >
@@ -120,7 +117,7 @@ function Register(props) {
                   <p
                     style={{
                       color: "red",
-                      fontSize: "24px",
+                      fontSize: "14px",
                       fontFamily: "Arial, sans-serif",
                     }}
                   >
@@ -131,7 +128,7 @@ function Register(props) {
                   <p
                     style={{
                       color: "red",
-                      fontSize: "24px",
+                      fontSize: "14px",
                       fontFamily: "Arial, sans-serif",
                     }}
                   >
@@ -141,12 +138,12 @@ function Register(props) {
                 <br />
 
                 <form onSubmit={handleSubmit} style={{ width: "80%" }}>
-                  <div style={{ marginBottom: "30px" }}>
+                  <div style={{ marginBottom: "13px" }}>
                     <label
                       style={{
                         display: "block",
-                        marginBottom: "10px",
-                        fontSize: "19px",
+                        marginBottom: "5px",
+                        fontSize: "13px",
                         fontFamily: "Arial, sans-serif",
                         color: "black",
                       }}
@@ -160,11 +157,12 @@ function Register(props) {
                       type="email"
                       size="lg"
                       name="username"
+                      placeholder="Enter Email"
                       value={credentials.username}
                       onChange={handleInputChange}
                       required
                       style={{
-                        fontSize: "29px",
+                        fontSize: "13px",
                         fontFamily: "Arial, sans-serif",
                         color: "black",
                       }}
@@ -174,8 +172,8 @@ function Register(props) {
                     <label
                       style={{
                         display: "block",
-                        marginBottom: "10px",
-                        fontSize: "19px",
+                        marginBottom: "5px",
+                        fontSize: "13px",
                         fontFamily: "Arial, sans-serif",
                         color: "black",
                       }}
@@ -189,11 +187,12 @@ function Register(props) {
                       type="password"
                       size="lg"
                       name="password"
+                      placeholder="Enter Password"
                       value={credentials.password}
                       onChange={handleInputChange}
                       required
                       style={{
-                        fontSize: "30px",
+                        fontSize: "13px",
                         fontFamily: "Arial, sans-serif",
                         color: "black",
                       }}
@@ -203,8 +202,8 @@ function Register(props) {
                     <label
                       style={{
                         display: "block",
-                        marginBottom: "10px",
-                        fontSize: "19px",
+                        marginBottom: "5px",
+                        fontSize: "13px",
                         fontFamily: "Arial, sans-serif",
                         color: "black",
                       }}
@@ -218,15 +217,45 @@ function Register(props) {
                       type="password"
                       size="lg"
                       name="confirmPassword"
+                      placeholder="Confirm Password"
                       value={credentials.confirmPassword}
                       onChange={handleInputChange}
                       required
                       style={{
-                        fontSize: "30px",
+                        fontSize: "13px",
                         fontFamily: "Arial, sans-serif",
                         color: "black",
                       }}
                     />
+                  </div>
+                  <div style={{ marginBottom: "20px" }}>
+                    <label
+                      style={{
+                        display: "block",
+                        marginBottom: "5px",
+                        fontSize: "13px",
+                        fontFamily: "Arial, sans-serif",
+                        color: "black",
+                      }}
+                      htmlFor="category"
+                    >
+                      Choose Category
+                    </label>
+                    <select 
+                            id="category" 
+                            type="category"
+                            size="lg"
+                            className='form-select' 
+                            name="category"
+                            value={credentials.category} 
+                            onChange={handleInputChange}
+                            required
+                        >
+                            <option value="">--select--</option>
+                            <option value="AgriSeries">AgriSeries</option>
+                            <option value="CyberoneSeries">CyberOneSeries</option>
+                            <option value="All">All</option>
+                        </select>
                   </div>
                   <MDBBtn
                     className="mb-4 px-5"

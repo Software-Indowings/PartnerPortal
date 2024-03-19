@@ -26,6 +26,7 @@ function Update_profile(props) {
     comments: "",
     reg_email: "",
   });
+  const [error, setError] = useState("");
 
   useEffect(() => {
     axios
@@ -56,6 +57,14 @@ function Update_profile(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Check if any fields are empty
+    for (const key in values) {
+      if (values[key] === "") {
+        setError("Please fill in all fields.");
+        return;
+      }
+    }
+    // If all fields are filled, submit the form
     axios
       .post("http://localhost:3307/profile_insert/", values)
       .then((res) => {
@@ -71,12 +80,24 @@ function Update_profile(props) {
         <h2 className="mb-4">Update Profile:</h2>
 
         <form onSubmit={handleSubmit}>
+          {error && <p className="text-danger">{error}</p>}
           <div style={{ marginBottom: "20px" }}>
             <label htmlFor="">Registered E-mail:</label>
             <input
               type="text"
               className="form-control"
+              required
               value={values.reg_email}
+              disabled
+            />
+          </div>
+          <div style={{ marginBottom: "20px" }}>
+            <label htmlFor="">Registered Category:</label>
+            <input
+              type="text"
+              className="form-control"
+              required
+              value={user.category}
               disabled
             />
           </div>
@@ -85,6 +106,7 @@ function Update_profile(props) {
             <input
               type="text"
               className="form-control"
+              required
               value={values.legal_name}
               onChange={(e) =>
                 setValues({ ...values, legal_name: e.target.value })
@@ -96,6 +118,7 @@ function Update_profile(props) {
             <input
               type="text"
               className="form-control"
+              required
               value={values.trading_name}
               onChange={(e) =>
                 setValues({ ...values, trading_name: e.target.value })
@@ -107,6 +130,7 @@ function Update_profile(props) {
             <input
               type="text"
               className="form-control"
+              required
               value={values.partner_tier}
               onChange={(e) =>
                 setValues({ ...values, partner_tier: e.target.value })
@@ -116,12 +140,21 @@ function Update_profile(props) {
           <div style={{ marginBottom: "20px" }}>
             <label htmlFor="">Company founding date:</label>
             <input
-              type="text"
+              type="date"
               className="form-control"
+              required
               value={values.founding_date}
               onChange={(e) =>
                 setValues({ ...values, founding_date: e.target.value })
               }
+              style={{
+                width: "100%",
+                padding: "8px",
+                marginTop: "5px",
+                marginBottom: "5px",
+                borderRadius: "5px",
+                border: "1px solid #ccc",
+              }}
             />
           </div>
           <div style={{ marginBottom: "20px" }}>
@@ -129,6 +162,7 @@ function Update_profile(props) {
             <input
               type="text"
               className="form-control"
+              required
               value={values.website}
               onChange={(e) =>
                 setValues({ ...values, website: e.target.value })
@@ -140,6 +174,7 @@ function Update_profile(props) {
             <input
               type="text"
               className="form-control"
+              required
               value={values.vat_number}
               onChange={(e) =>
                 setValues({ ...values, vat_number: e.target.value })
@@ -151,6 +186,7 @@ function Update_profile(props) {
             <input
               type="text"
               className="form-control"
+              required
               value={values.employees}
               onChange={(e) =>
                 setValues({ ...values, employees: e.target.value })
@@ -162,6 +198,7 @@ function Update_profile(props) {
             <input
               type="text"
               className="form-control"
+              required
               value={values.address}
               onChange={(e) =>
                 setValues({ ...values, address: e.target.value })
@@ -173,6 +210,7 @@ function Update_profile(props) {
             <input
               type="text"
               className="form-control"
+              required
               value={values.reg_phone}
               onChange={(e) =>
                 setValues({ ...values, reg_phone: e.target.value })
@@ -186,16 +224,19 @@ function Update_profile(props) {
             <input
               type="text"
               className="form-control"
+              required
               value={values.key_name}
               onChange={(e) =>
                 setValues({ ...values, key_name: e.target.value })
               }
             />
+
             <br />
             <label htmlFor="">Email:</label>
             <input
               type="text"
               className="form-control"
+               required
               value={values.key_email}
               onChange={(e) =>
                 setValues({ ...values, key_email: e.target.value })
@@ -206,6 +247,7 @@ function Update_profile(props) {
             <input
               type="text"
               className="form-control"
+               required
               value={values.key_phone}
               onChange={(e) =>
                 setValues({ ...values, key_phone: e.target.value })
@@ -216,6 +258,7 @@ function Update_profile(props) {
             <input
               type="text"
               className="form-control"
+               required
               value={values.key_position}
               onChange={(e) =>
                 setValues({ ...values, key_position: e.target.value })
@@ -227,6 +270,7 @@ function Update_profile(props) {
             <input
               type="text"
               className="form-control"
+               required
               value={values.industries}
               onChange={(e) =>
                 setValues({ ...values, industries: e.target.value })
@@ -238,6 +282,7 @@ function Update_profile(props) {
             <input
               type="text"
               className="form-control"
+               required
               value={values.comments}
               onChange={(e) =>
                 setValues({ ...values, comments: e.target.value })

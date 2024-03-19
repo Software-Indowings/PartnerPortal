@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Route } from "react-router-dom"; 
 import background from "../images/3.png";
+import EditStatus from "./EditStatus";
 
 function Orders(props) {
   const [orders, setOrders] = useState([]);
   const [error, setError] = useState(null);
-  const [selectedStatus, setSelectedStatus] = useState(""); // State to store selected status for each order
-
+  const [selectedStatus, setSelectedStatus] = useState(""); 
+  
   useEffect(() => {
     fetch("http://localhost:3307/allorders")
       .then((response) => {
@@ -33,17 +34,14 @@ function Orders(props) {
   }, []);
 
   const handleStatusChange = (orderId) => {
-    // Ensure a status is selected
     if (!selectedStatus) {
       console.error("No status selected");
       return;
     }
 
-    // Write your logic here to update the order status
     console.log("Order ID:", orderId);
     console.log("New Status:", selectedStatus);
 
-    // Send a request to update the status of the specific order
     fetch(`http://localhost:3307/updateOrderStatus/${orderId}`, {
       method: "PUT",
       headers: {
@@ -59,11 +57,9 @@ function Orders(props) {
       })
       .then((data) => {
         console.log("Status updated successfully:", data);
-        // You can update the local state or perform any necessary actions after updating the status
       })
       .catch((error) => {
         console.error("Error updating status:", error);
-        // Handle error
       });
   };
 
@@ -128,7 +124,8 @@ function Orders(props) {
                 </td>
                 <td>{order.total_price}</td>
                 <td>upload invoice</td>
-                <td>
+                <td>{order.order_status}</td>
+                {/* <td>
                   <select
                     value={selectedStatus}
                     onChange={(e) => setSelectedStatus(e.target.value)}
@@ -137,9 +134,9 @@ function Orders(props) {
                     <option value="pending">Pending</option>
                     <option value="approved">Approved</option>
                   </select>
-                </td>
+                </td> */}
                 <td>
-                  <button onClick={() => handleStatusChange(order.order_id)}>Update Status</button>
+                  <Link to={`/editstatus/${order.order_id}`} className='btn btn-sm btn-info'>Manage</Link> {/* Corrected link */}
                 </td>
               </tr>
             ))}
@@ -165,3 +162,4 @@ function isValidJSON(jsonString) {
 }
 
 export default Orders;
+

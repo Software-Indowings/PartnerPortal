@@ -52,6 +52,8 @@ import LegalInfo from "./Components/LegalInfo/LegalInfo";
 import Create_Info from "./Components/LegalInfo/Create_Info";
 import EditStatus from "./Components/EditStatus";
 import Register from "./Partnerportal/Register";
+import RegistrationForm from "./RegistrationForm";
+
 
 function App() {
   return (
@@ -204,6 +206,7 @@ function App() {
             </AdminProtectedRoute>
           }
         />
+        <Route path="/registration" element={<RegistrationForm />} />
         <Route path="/sidebar" element={<Sidebar />} />
         <Route path="/test" element={<Test />} />
         <Route path="/navbar" element={<Navbar />} />
