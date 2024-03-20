@@ -5,6 +5,8 @@ import bcrypt from 'bcrypt';
 import bodyParser from 'body-parser';
 import fs from 'fs';
 import multer from 'multer';
+// import sendMail from  './sendMail.js'
+// import Randomstring from 'randomstring';
 
 const app = express();
 app.use(cors());
@@ -101,6 +103,17 @@ app.post('/register', (req, res) => {
       console.error("Error executing SQL query:", err);
       return res.status(500).json({ error: "An error occurred during registration." });
     }
+
+    // let mailSubject = 'Mail Verification';
+    // const randomToken = Randomstring.generate();
+    // let content = '<p>Hi ' + req.body.username + ', Please <a href="http://localhost:3001/verify?token=' + randomToken + '">Verify</a> your Mail';
+    // sendMail(req.body.username, mailSubject, content);
+    // db.query('UPDATE users SET token=? WHERE username=?', [randomToken, req.body.username], function(error, result, fields){
+    //   if (error) {
+    //     return res.status(400).send({ error: "An error occurred during registration." });
+    //   }
+    // });
+
     return res.status(200).json({ success: true, message: "Registration successful." });
   });
 });
@@ -540,6 +553,15 @@ app.put('/edistatus/:order_id', (req, res) => {
         return res.json(result);
     });
 });
+
+app.delete('/delete_order/:order_id',(req,res)=>{
+  const sql = 'DELETE FROM orders WHERE order_id =?';
+  const id = req.params.order_id;
+  db.query(sql,[id], (err,result)=>{
+      if(err) return res.json({Message: "Error in server"});
+      return res.json(result);
+  })
+})
 
 //   // Delete Legal Info by ID
 //   app.delete('/legal-info/:id', (req, res) => {

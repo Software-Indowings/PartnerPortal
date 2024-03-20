@@ -103,12 +103,14 @@ function ReadProfile(props) {
             Back
           </Link>
           {/* <Link to={`/update_profiles/${profile.profile_id}`} className='btn btn-primary mx-2'>Edit</Link> */}
-          <button
-            onClick={() => handleDelete(profile.profile_id)}
-            className="btn btn-danger"
-          >
-            Delete
-          </button>
+          <div className="d-flex justify-content-end">
+            <button
+              onClick={() => handleDelete(profile.profile_id)}
+              className="btn btn-danger"
+            >
+              Delete
+            </button>
+          </div>
         </div>
       </div>
     </div>

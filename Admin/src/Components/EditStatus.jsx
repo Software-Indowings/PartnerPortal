@@ -31,6 +31,14 @@ function EditStatus(props) {
       .catch((err) => console.log(err));
   }, [order_id]);
 
+  const handleDelete = (order_id) => {
+    axios.delete(`http://localhost:3307/delete_order/${order_id}`)
+        .then(res => {
+            navigate('/orders');
+        })
+        .catch(err => console.log(err))
+}
+
   return (
     <div
       style={{
@@ -52,7 +60,10 @@ function EditStatus(props) {
         }}
       >
         <form onSubmit={handleUpdate}>
-          <h2>Update Status</h2>
+          <h2>Update Status  <button onClick={() => handleDelete(order.order_id)} 
+          className='btn btn-danger ms-2'> Delete Order</button>
+             </h2>
+          
           <div style={{ marginBottom: "20px" }}>
             <p>Order ID: {order.order_id}</p>
             <p>Email: {order.order_email}</p>
@@ -114,13 +125,16 @@ function EditStatus(props) {
               padding: "10px 20px",
               border: "none",
               borderRadius: "5px",
+              marginRight: "10px",
               cursor: "pointer",
+              textDecoration: "none",
               backgroundColor: "#28a745",
               color: "#fff",
             }}
           >
             Update
           </button>
+          
         </form>
       </div>
     </div>
